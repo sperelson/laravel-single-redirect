@@ -41,6 +41,7 @@ class HandleSingleRedirect
         $server = $request->server->all();
         $newReponse = $response;
         $allowedRedirectCount = config('single-redirect.redirect-count');
+        $methodToUse = config('single-redirect.use-request-method', false) ? $method : 'HEAD';
 
         while ($newReponse instanceof RedirectResponse) {
             $url = $newReponse->headers->get('location');
@@ -55,7 +56,7 @@ class HandleSingleRedirect
             /** @var Request $request2 */
             $request2 = Request::create(
                 $url,
-                $method ?? 'GET',
+                $methodToUse ?? 'HEAD',
                 [],
                 $cookies ?? [],
                 [],

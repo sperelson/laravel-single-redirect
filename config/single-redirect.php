@@ -24,4 +24,10 @@ return [
      * Number of times to test the redirects before failing with an exception
      */
     'redirect-count' => 10,
+
+    /*
+     * Will use HEAD by default
+     * Set to true to use the request's method
+     */
+    'use-request-method' => false,
 ];
