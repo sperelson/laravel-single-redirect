@@ -1,6 +1,8 @@
 # Single Redirect
 ## Laravel Middleware Package
 
+**Please do not use this on production - it doesn't even have tests!**
+
 **Purpose:** Add a middleware to your Laravel project that will reduce redirect hops down to 1 redirect.
 
 Sometimes, through no fault of your own, you can end up with redirects after redirects before your
