@@ -25,6 +25,7 @@ class HandleSingleRedirect
         $response = $next($request);
         $responseStatus = $response->status();
         $method = $request->method();
+        $baseUrl = url('/');
 
         if (
             $method !== 'GET'
@@ -45,6 +46,11 @@ class HandleSingleRedirect
 
         while ($newReponse instanceof RedirectResponse) {
             $url = $newReponse->headers->get('location');
+
+            // If the redirect is leaving our domain, proceed with the redirect
+            if (str_starts_with($url, $baseUrl) === false) {
+                return $newReponse;
+            }
 
             if ($infiniteLoop++ > $allowedRedirectCount) {
                 throw new \Exception("Infinite loop detected");
